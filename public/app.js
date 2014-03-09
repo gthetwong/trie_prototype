@@ -23,10 +23,19 @@ $(document).ready(function(){
 
 
 App.Routers.Main = Backbone.Router.extend({
-  routes: {"": "index"},
+  routes: {
+      "": "index",
+      "/(:param)": "param_search"
+    },
+
   index: function(){
     var view = new App.Views.Index();
     $("#container").append(view.render().el);
+  },
+  param_search: function(param){
+    var view = new App.Views.Index();
+    $("#container").append(view.render().el);
+    view.auto_search(param);
   }
 });
 
@@ -45,11 +54,20 @@ App.Views.Index = Backbone.View.extend({
     return this;
   },
   search_fnc: function(){
+      $("#titles").empty();
         var word = $("#search_bar").val();
         var results = App.autocompleter.complete(word);
-        // $.each(results, function(index, value){
-          $("#titles").html(results);
-        // });
+        $.each(results, function(index, value){
+          $("#titles").append("<li><a href=\"https://en.wikipedia.org/wiki/"+ value + "\">"+ value + "</li>");
+          // $("#titles").html(results);
+        });
+  },
+  auto_search: function(param){
+    var results = App.autocompleter.complete(param);
+     $.each(results, function(index, value){
+          $("#titles").append("<li><a href=\"https://en.wikipedia.org/wiki/"+ value + "\">"+ value + "</li>");
+          // $("#titles").html(results);
+        });
   }
 });
 
