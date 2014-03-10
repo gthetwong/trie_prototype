@@ -37,7 +37,7 @@ App.Routers.Main = Backbone.Router.extend({
     $("#container").append(view.render().el);
     setTimeout(function(){
       view.auto_search(param);
-    }, 500);
+    }, 1000);
   }
 });
 
@@ -66,6 +66,7 @@ App.Views.Index = Backbone.View.extend({
         });
   },
   auto_search: function(param){
+    $("#titles").empty();
     var results = App.autocompleter.complete(param);
      $.each(results, function(index, value){
           $("#titles").append("<li><a href=\"https://en.wikipedia.org/wiki/"+ value + "\">"+ value + "</li>");
