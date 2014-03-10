@@ -17,6 +17,10 @@ get '/*'  do
           ws.send(l.downcase.chomp)
           sleep(0.00001)
         end
+        File.open("petite_titles").each_line do |l|
+          ws.send(l.downcase.chomp)
+          sleep(0.00001)
+        end
         ws.close_websocket
       end
       ws.onclose do
